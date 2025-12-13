@@ -1,17 +1,25 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// حالت‌های مختلف بتمن
+/// </summary>
 public enum BatmanState { Normal, Stealth, Alert }
 
+/// <summary>
+/// مدیریت حالت‌های بتمن:
+/// Normal، Stealth و Alert
+/// هر حالت روی نور محیط و سیستم هشدار تأثیر می‌گذارد
+/// </summary>
 public class BatmanStateManager : MonoBehaviour
 {
     public BatmanState currentState = BatmanState.Normal;
 
-    public Light mainLight;             // نور محیط
-    public AlertSystem alertSystem;     // سیستم نور + صدای Alert
+    public Light mainLight;         // نور اصلی محیط
+    public AlertSystem alertSystem; //(سیستم هشدار (نور و صدا
 
     void Start()
     {
-        // شروع بازی در حالت Normal
+        // بازی همیشه از حالت نرمال شروع می‌شود
         SetState(BatmanState.Normal);
     }
 
@@ -20,6 +28,9 @@ public class BatmanStateManager : MonoBehaviour
         HandleInput();
     }
 
+    /// <summary>
+    /// دریافت ورودی کیبورد برای تغییر حالت بتمن
+    /// </summary>
     void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.N))
@@ -32,6 +43,9 @@ public class BatmanStateManager : MonoBehaviour
             SetState(BatmanState.Alert);
     }
 
+    /// <summary>
+    /// تغییر حالت بتمن و اعمال رفتار مربوط به هر حالت
+    /// </summary>
     void SetState(BatmanState newState)
     {
         currentState = newState;

@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// کنترل Bat-Signal:
+///  B روشن/خاموش شدن با کلید 
+/// و چرخش آرام نور در آسمان به‌صورت رفت و برگشتی
+/// </summary>
 public class BatSignal : MonoBehaviour
 {
-
-    public Light batLight;
-
+    public Light batLight;          // نور بت‌سیگنال
     public float intensity = 100000f;
     public float speed = 0.05f;
 
+    // بازه چرخش نور در آسمان
     public Vector3 minRot = new Vector3(-5f, 265f, -466f);
     public Vector3 maxRot = new Vector3(1f, 432f, -432f);
 
@@ -16,22 +20,24 @@ public class BatSignal : MonoBehaviour
 
     void Start()
     {
+        // اگر نور به‌صورت دستی مقداردهی نشده بود، از فرزند بگیر
         if (batLight == null)
             batLight = GetComponentInChildren<Light>();
 
+        // در شروع بازی خاموش باشد
         batLight.intensity = 0f;
     }
 
     void Update()
     {
+        //Bat-Signal روشن/خاموش کردن 
         if (Input.GetKeyDown(KeyCode.B))
         {
             active = !active;
             batLight.intensity = active ? intensity : 0f;
-
-           
         }
 
+        // در صورت فعال بودن، چرخش آرام انجام شود
         if (active)
         {
             timer += Time.deltaTime * speed;
@@ -39,6 +45,10 @@ public class BatSignal : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Bat-Signalچرخش رفت و برگشتی نور 
+    /// بدون تغییر موقعیت
+    /// </summary>
     void RotatePingPong()
     {
         Vector3 newRot;
@@ -50,4 +60,3 @@ public class BatSignal : MonoBehaviour
         transform.eulerAngles = newRot;
     }
 }
-
